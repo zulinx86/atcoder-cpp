@@ -8,6 +8,7 @@
 
 ## Computational Complexity
 From [W - 2.06.計算量](https://atcoder.jp/contests/apg4b/tasks/APG4b_w)
+
 ![](https://img.atcoder.jp/APG4b-hidden/2.06.complexity_graph.png)
 
 | N     | O(1)     | O(log N) | O(N)     | O(N log N) | O(N^2)    | O(2^N)    |
