@@ -19,3 +19,19 @@ From [W - 2.06.計算量](https://atcoder.jp/contests/apg4b/tasks/APG4b_w)
 | 10^8  | a moment | a moment | ~ 1 s    | ~ 30 s     | ~ 3y      | explosion |
 | 10^16 | a moment | a moment | ~ 3 y    | ~ 170 y    | explosion | explosion |
 |       |          |          |          |            |           |           |
+
+
+## Data Type Ranges
+| type                 | byte | range                                      | order    |
+| -------------------- | ---- | ------------------------------------------ | -------- |
+| `char`               | 1    | -128 ~ 127                                 | O(10^2)  |
+| `unsigned char`      | 1    | 0 ~ 255                                    | O(10^2)  |
+| `short`              | 2    | -32768 ~ 32767                             | O(10^4)  |
+| `unsigned short`     | 2    | 0 ~ 65535                                  | O(10^4)  |
+| `int`                | 4    | -2147483648 ~ 2147483647                   | O(10^9)  |
+| `unsigned int`       | 4    | 0 ~ 4294967295                             | O(10^9)  |
+| `long long`          | 8    | -9223372036854775808 ~ 9223372036854775807 | O(10^18) |
+| `unsigned long long` | 8    | 0 ~ 18446744073709551615                   | O(10^19) |
+| `float`              | 4    | 1.17549e-38 ~ 3.40282e+38                  |          |
+| `double`             | 8    | 2.27507e-308 ~ 1.79769e+308                |          |
+| `long double`        | 16   | 3.3621e-4932 ~ 1.18973e+4932               |          |
