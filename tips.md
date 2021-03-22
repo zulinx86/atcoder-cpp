@@ -59,6 +59,29 @@ bool IsPrime(ull N) {
 }
 ```
 
+### Number of Divisors
+```cpp
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+using ull = unsigned long long;
+
+vector<ull> GetDivisors(ull N) {
+	vector<ull> res;
+	for (ull i = 1; i * i <= N; ++i) {
+		if (N % i == 0) {
+			res.push_back(i);
+			if (N / i != i) res.push_back(N/ i);
+		}
+	}
+
+	sort(res.begin(), res.end());
+	return res;
+}
+```
+
+
 ### Links
 - [AtCoder 版！マスター・オブ・整数 (素因数分解編) - Qiita](https://qiita.com/drken/items/a14e9af0ca2d857dad23)
 - [AtCoder 版！マスター・オブ・整数 (最大公約数編) - Qiita](https://qiita.com/drken/items/0c88a37eec520f82b788)
