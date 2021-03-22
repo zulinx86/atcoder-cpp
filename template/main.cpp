@@ -35,6 +35,6 @@ const string COLOR_RESET = "\033[0m", BRIGHT_GREEN = "\033[1;32m", BRIGHT_RED = 
 #endif
 
 int main() {
-
+	// not implemented
 	return 0;
 }
