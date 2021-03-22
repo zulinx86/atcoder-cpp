@@ -45,6 +45,20 @@ https://en.wikipedia.org/wiki/Hamming_distance
 
 
 ## Integer Problem
+### Number of Digits
+```cpp
+using ull = unsigned long long;
+
+int CalcNumDigits(ull N) {
+	int res = 0;
+	while (N) {
+		++res;
+		N /= 10;
+	}
+	return res;
+}
+```
+
 ### Primality Test
 When we test the primality of N, we only need to check the number from 2 to the square root of N.
 ```cpp
