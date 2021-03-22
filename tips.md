@@ -95,6 +95,31 @@ vector<ull> GetDivisors(ull N) {
 }
 ```
 
+### Prime Factorization
+```cpp
+#include<vector>
+
+using namespace std;
+using ull = unsigned long long;
+
+vector<pair<ull, ull>> PrimeFactorization(ull N) {
+	vector<pair<ull, ull>> res;
+	for (ull a = 2; a * a <= N; ++a) {
+		if (N % a != 0) continue;
+
+		ull ex = 0;
+		while (N % a == 0) {
+			++ex;
+			N /= a;
+		}
+
+		res.push_back({a, ex});
+	}
+
+	if (N != 1) res.push_back({N, 1});
+	return res;
+}
+```
 
 ### Links
 - [AtCoder 版！マスター・オブ・整数 (素因数分解編) - Qiita](https://qiita.com/drken/items/a14e9af0ca2d857dad23)
