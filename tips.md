@@ -42,3 +42,23 @@ From [W - 2.06.計算量](https://atcoder.jp/contests/apg4b/tasks/APG4b_w)
 ### Hamming Distance
 https://en.wikipedia.org/wiki/Hamming_distance
 > In information theory, the Hamming distance between two strings of equal length is the number of positions at which the corresponding symbols are different. In other words, it measures the minimum number of substitutions required to change one string into the other, or the minimum number of errors that could have transformed one string into the other.
+
+
+## Integer Problem
+### Primality Test
+When we test the primality of N, we only need to check the number from 2 to the square root of N.
+```cpp
+using ull = unsigned long long;
+
+bool IsPrime(ull N) {
+	if (N == 1) return false;
+	for (ull i = 2; i * i <= N; ++i) {
+		if (N % i == 0) return false;
+	}
+	return true;
+}
+```
+
+### Links
+- [AtCoder 版！マスター・オブ・整数 (素因数分解編) - Qiita](https://qiita.com/drken/items/a14e9af0ca2d857dad23)
+- [AtCoder 版！マスター・オブ・整数 (最大公約数編) - Qiita](https://qiita.com/drken/items/0c88a37eec520f82b788)
