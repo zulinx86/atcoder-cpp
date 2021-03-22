@@ -36,3 +36,9 @@ From [W - 2.06.計算量](https://atcoder.jp/contests/apg4b/tasks/APG4b_w)
 | `float`              | 4    | 1.17549e-38 ~ 3.40282e+38                  |          |
 | `double`             | 8    | 2.27507e-308 ~ 1.79769e+308                |          |
 | `long double`        | 16   | 3.3621e-4932 ~ 1.18973e+4932               |          |
+
+
+## Distances
+### Hamming Distance
+https://en.wikipedia.org/wiki/Hamming_distance
+> In information theory, the Hamming distance between two strings of equal length is the number of positions at which the corresponding symbols are different. In other words, it measures the minimum number of substitutions required to change one string into the other, or the minimum number of errors that could have transformed one string into the other.
