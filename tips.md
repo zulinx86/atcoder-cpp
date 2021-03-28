@@ -39,8 +39,8 @@ From [W - 2.06.計算量](https://atcoder.jp/contests/apg4b/tasks/APG4b_w)
 
 
 ## Brute-Force Search
-### Bit Brute-Force Search
-How to search some from N items.
+### Brute-Force Search For Combination
+How to search all combination of N items.
 ```cpp
 #include <iostream>
 #include <bitset>
