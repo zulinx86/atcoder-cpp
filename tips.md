@@ -38,6 +38,47 @@ From [W - 2.06.計算量](https://atcoder.jp/contests/apg4b/tasks/APG4b_w)
 | `long double`        | 16   | 3.3621e-4932 ~ 1.18973e+4932               |          |
 
 
+## Brute-Force Search
+### Bit Brute-Force Search
+How to search some from N items.
+```cpp
+#include <iostream>
+#include <bitset>
+
+using namespace std;
+
+int main(void) {
+	int N;
+	cin >> N;
+
+	for (int i = 0; i < (1 << N); ++i) {
+		cout << bitset<10>(i) << endl;
+	}
+}
+```
+```
+$ g++ test.cpp
+$ ./a.out
+4
+0000000000
+0000000001
+0000000010
+0000000011
+0000000100
+0000000101
+0000000110
+0000000111
+0000001000
+0000001001
+0000001010
+0000001011
+0000001100
+0000001101
+0000001110
+0000001111
+```
+
+
 ## Distances
 ### Hamming Distance
 https://en.wikipedia.org/wiki/Hamming_distance
