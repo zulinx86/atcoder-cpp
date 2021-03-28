@@ -1,8 +1,8 @@
 CXX		= g++
 CXXFLAGS	= -std=gnu++17 -O2 -Wall
 
-%.o: %.cpp
-	time $(CXX) $(CXXFLAGS) -o $@ $<
+%: %.cpp
+	time $(CXX) $(CXXFLAGS) $<
 
 clean:
-	rm -f *.o
+	rm -f a.out
