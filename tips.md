@@ -136,3 +136,7 @@ vector<pair<ull, ull>> PrimeFactorization(ull N) {
 		- Time complexity
 		- Space complexity
 4. Improve the algorithm.
+
+
+## To-Do
+- Divide-and-Conquer method
