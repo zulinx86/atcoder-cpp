@@ -124,3 +124,15 @@ vector<pair<ull, ull>> PrimeFactorization(ull N) {
 ### Links
 - [AtCoder 版！マスター・オブ・整数 (素因数分解編) - Qiita](https://qiita.com/drken/items/a14e9af0ca2d857dad23)
 - [AtCoder 版！マスター・オブ・整数 (最大公約数編) - Qiita](https://qiita.com/drken/items/0c88a37eec520f82b788)
+
+
+## Coding Interview
+1. Clarify the problem.
+	- Input (Data Type, Size)
+	- Output
+2. Take some examples.
+3. Start with the brute-force algorithm.
+	- Check its computational complexity.
+		- Time complexity
+		- Space complexity
+4. Improve the algorithm.
