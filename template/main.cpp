@@ -37,6 +37,8 @@ const string COLOR_RESET = "\033[0m", BRIGHT_GREEN = "\033[1;32m", BRIGHT_RED = 
 #endif
 
 int main() {
-	// not implemented
+	cin.tie(0);
+	ios::sync_with_stdio(false);
+
 	return 0;
 }
