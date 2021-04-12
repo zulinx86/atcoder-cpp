@@ -127,7 +127,7 @@ vector<ull> GetDivisors(ull N) {
 	for (ull i = 1; i * i <= N; ++i) {
 		if (N % i == 0) {
 			res.push_back(i);
-			if (N / i != i) res.push_back(N/ i);
+			if (N / i != i) res.push_back(N / i);
 		}
 	}
 
@@ -167,6 +167,76 @@ vector<pair<ull, ull>> PrimeFactorization(ull N) {
 - [AtCoder 版！マスター・オブ・整数 (最大公約数編) - Qiita](https://qiita.com/drken/items/0c88a37eec520f82b788)
 
 
+## Recursion
+### Fibonacci Numbers
+Dynamic Programming (DP) using memo.
+```c++
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+vector<long long> memo;
+
+long long fibo(int n) {
+	if (n == 0) return 0;
+	else if (n == 1) return 1;
+
+	if (memo[n] != -1) return memo[n];
+
+	return memo[n] = fibo(n - 1) + fibo(n - 2);
+}
+
+int main(void) {
+	int N;
+	cin >> N;
+
+	memo = vector<long long>(N, -1);
+	cout << fibo(N) << endl;
+
+	return 0;
+}
+```
+
+### Euclidean Algorithm
+Recall that the greatest common divisor (GCD) of two integers a and b, written gcd(a, b), is the largest integer that divides a and b.
+Define gcd(a, 0) = a.
+
+Theorem:
+```
+Suppose two integers a and b (a >= b > 0) and a devided by b equals q with a remainder of r.
+  a = q * b + r
+Then,
+  gcd(a, b) = gcd(b, r)
+```
+
+Proof:
+```
+Let G = gcd(a, b), a and b can be written as follows:
+  a = G * a'
+  b = G * b'
+where a' and b' are coprime.
+
+From the above,
+  G * a' = q * (G * b') + r
+  r = G * (a' - q * b') .
+
+Suppose r' = (a' - q * b'),
+  r = G * r' .
+This means that r is multiple of G as well as b.
+
+Here, b and r cannot take greater common divisors than G, becuase 0 <= r < G.
+Therefore G = gcd(b, r).
+``` 
+
+```c++
+int gcd(int a, int b) {
+	if (b == 0) return a;
+	return gcd(b, a % b);
+}
+```
+
+
 ## Coding Interview
 1. Clarify the problem.
 	- Input (Data Type, Size)
@@ -181,3 +251,4 @@ vector<pair<ull, ull>> PrimeFactorization(ull N) {
 
 ## To-Do
 - Divide-and-Conquer method
+- Dynamic Programming
