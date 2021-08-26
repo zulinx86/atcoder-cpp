@@ -39,18 +39,30 @@ int main() {
 	cin.tie(0);
 	ios::sync_with_stdio(false);
 
-	string x;
-	cin >> x;
+	int n, m;
+	cin >> n >> m;
 
-	bool same = true;
-	bool step = true;
-	rep(i, 3) {
-		if (x[i] != x[i+1]) same = false;
-		if ((x[i] - '0' + 1) % 10 != (x[i + 1] - '0')) step = false;
-	}
+	vi a(n), b(m);
+	rep(i, n) cin >> a[i];
+	rep(i, m) cin >> b[i];
+	sort(a.begin(), a.end());
+	sort(b.begin(), b.end());
 
-	if (same || step) cout << "Weak" << endl;
-	else cout << "Strong" << endl;
+	int i = 0, j = 0;
+	int val, minval = 1000000001;
 
+	do {
+		val = abs(a[i] - b[j]);
+		if (val < minval) minval = val;
+
+		if (i == n - 1) ++j;
+		else if (j == m - 1) ++i;
+		else {
+			if (a[i] < b[j]) ++i;
+			else ++j;
+		}
+	} while (i < n - 1 || j < m - 1);
+
+	cout << minval << endl;
 	return 0;
 }

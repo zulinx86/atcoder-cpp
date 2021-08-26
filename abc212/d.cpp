@@ -39,18 +39,26 @@ int main() {
 	cin.tie(0);
 	ios::sync_with_stdio(false);
 
-	string x;
-	cin >> x;
 
-	bool same = true;
-	bool step = true;
-	rep(i, 3) {
-		if (x[i] != x[i+1]) same = false;
-		if ((x[i] - '0' + 1) % 10 != (x[i + 1] - '0')) step = false;
+	int q;
+	cin >> q;
+
+	ll b = 0;
+	priority_queue<ll, vector<ll>, greater<ll>> pq;
+
+	rep(i, q) {
+		ll a;
+		cin >> a;
+		if (a == 3) {
+			cout << pq.top() + b << endl;
+			pq.pop();
+		} else {
+			ll x;
+			cin >> x;
+			if (a == 1) pq.push(x - b);
+			else b += x;
+		}
 	}
-
-	if (same || step) cout << "Weak" << endl;
-	else cout << "Strong" << endl;
 
 	return 0;
 }
