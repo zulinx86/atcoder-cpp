@@ -3,7 +3,7 @@
 - number to `std::string`: [`std::to_string`](http://www.cplusplus.com/reference/string/to_string/)
 - `std::string` to `int`: [`std::stoi`](http://www.cplusplus.com/reference/string/stoi/)
 - `std::string` to `long`: [`std::stol`](http://www.cplusplus.com/reference/string/stol/)
-- `std::string` to `long long`: [std::stoll](https://www.cplusplus.com/reference/string/stoll/)
+- `std::string` to `long long`: [`std::stoll`](https://www.cplusplus.com/reference/string/stoll/)
 
 
 ## Computational Complexity
@@ -36,6 +36,34 @@ From [W - 2.06.計算量](https://atcoder.jp/contests/apg4b/tasks/APG4b_w)
 | `float`              | 4    | 1.17549e-38 ~ 3.40282e+38                  |          |
 | `double`             | 8    | 2.27507e-308 ~ 1.79769e+308                |          |
 | `long double`        | 16   | 3.3621e-4932 ~ 1.18973e+4932               |          |
+
+
+## Time Complexity of C++ STL (Standard Template Library)
+| Method \ Class | `vector`       | `priority_queue` |
+| -------------- | -------------- | ---------------- |
+| `size()`       | O(1)           | \*\*             |
+| `push()`       | n/a            | todo             |
+| `pop()`        | n/a            | todo             |
+| `push_back()`  | O(1) / O(N) \* | n/a              |
+| `top()`        | n/a            | todo             |
+| `operator[]`   | O(1)           | n/a              |
+
+- n/a : The method is not available.
+- \* : The time complexity can change depending on the situation.
+- \*\* : The time complexity depends on other data structures.
+
+
+\* The time complexity can be worse under certain conditions.
+
+- [`vector`](https://code.woboq.org/gcc/libstdc++-v3/include/bits/stl_vector.h.html#std::vector)
+	- [`size()`](https://code.woboq.org/gcc/libstdc++-v3/include/bits/stl_vector.h.html#_ZNKSt6vector4sizeEv)
+	- [`push_back()`](https://code.woboq.org/gcc/libstdc++-v3/include/bits/stl_vector.h.html#_ZNSt6vector9push_backERKT_)
+- [`priority_queue`](https://code.woboq.org/gcc/libstdc++-v3/include/bits/stl_queue.h.html#423)
+	- [`size()`](https://code.woboq.org/gcc/libstdc++-v3/include/bits/stl_queue.h.html#572)
+	- [`push()`](https://code.woboq.org/gcc/libstdc++-v3/include/bits/stl_queue.h.html#595)
+	- [`pop()`](https://code.woboq.org/gcc/libstdc++-v3/include/bits/stl_queue.h.html#630)
+	- [`top()`](https://code.woboq.org/gcc/libstdc++-v3/include/bits/stl_queue.h.html#580)
+
 
 
 ## Brute-Force Search
