@@ -237,6 +237,21 @@ int gcd(int a, int b) {
 ```
 
 
+## Dynamic Programming
+### Floyd-Warshall Algorithm
+https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm
+- In computer science, the Floyd–Warshall algorithm is an algorithm for finding shortest paths in a directed weighted graph with positive or negative edge weights (but with no negative cycles).
+- A single execution of the algorithm will find the lengths (summed weights) of shortest paths between all pairs of vertices.
+- Time complexity is `O(N^3)` where `N` is the number of vertices.
+- Algorithm
+	- Consider a graph `G` with vertices `V` numbered `1` through `N`.
+	- Further consider a function `shortest_path(i,j,k)` that returns the shortest possible path from i to j using vertices only from the set `{1,2,...,k}` as intermediate points along the way.
+	- Now, given this function, our goal is to find the shortest path from each `i` to `j` using any vertex in `{1,2,...,N}`.
+	- If `w(i,j)` is the weight of the edge between vertices `i` and `j`, we can define `shortest_path(i,j,k)` in terms of the following recursive formula:
+		- the base case is `shortest_path(i,j,0) = w(i,j)`
+		- the recursive case is `shortest_path(i,j,k) = min(shortest_path(i,j,k-1), shortest_path(i,k,k-1) + shortest_path(k,j,k-1))`
+
+
 ## Coding Interview
 1. Clarify the problem.
 	- Input (Data Type, Size)
