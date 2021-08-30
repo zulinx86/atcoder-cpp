@@ -38,34 +38,6 @@ From [W - 2.06.計算量](https://atcoder.jp/contests/apg4b/tasks/APG4b_w)
 | `long double`        | 16   | 3.3621e-4932 ~ 1.18973e+4932               |          |
 
 
-## Time Complexity of C++ STL (Standard Template Library)
-| Method \ Class | `vector`       | `priority_queue` |
-| -------------- | -------------- | ---------------- |
-| `size()`       | O(1)           | \*\*             |
-| `push()`       | n/a            | todo             |
-| `pop()`        | n/a            | todo             |
-| `push_back()`  | O(1) / O(N) \* | n/a              |
-| `top()`        | n/a            | todo             |
-| `operator[]`   | O(1)           | n/a              |
-
-- n/a : The method is not available.
-- \* : The time complexity can change depending on the situation.
-- \*\* : The time complexity depends on other data structures.
-
-
-\* The time complexity can be worse under certain conditions.
-
-- [`vector`](https://code.woboq.org/gcc/libstdc++-v3/include/bits/stl_vector.h.html#std::vector)
-	- [`size()`](https://code.woboq.org/gcc/libstdc++-v3/include/bits/stl_vector.h.html#_ZNKSt6vector4sizeEv)
-	- [`push_back()`](https://code.woboq.org/gcc/libstdc++-v3/include/bits/stl_vector.h.html#_ZNSt6vector9push_backERKT_)
-- [`priority_queue`](https://code.woboq.org/gcc/libstdc++-v3/include/bits/stl_queue.h.html#423)
-	- [`size()`](https://code.woboq.org/gcc/libstdc++-v3/include/bits/stl_queue.h.html#572)
-	- [`push()`](https://code.woboq.org/gcc/libstdc++-v3/include/bits/stl_queue.h.html#595)
-	- [`pop()`](https://code.woboq.org/gcc/libstdc++-v3/include/bits/stl_queue.h.html#630)
-	- [`top()`](https://code.woboq.org/gcc/libstdc++-v3/include/bits/stl_queue.h.html#580)
-
-
-
 ## Brute-Force Search
 ### Brute-Force Search For Combination
 How to search all combination of N items.
@@ -280,3 +252,37 @@ int gcd(int a, int b) {
 ## To-Do
 - Divide-and-Conquer method
 - Dynamic Programming
+
+
+## Time Complexity of C++ STL (Standard Template Library)
+| Method \ Class | `vector`       | `priority_queue` |
+| -------------- | -------------- | ---------------- |
+| `size()`       | O(1)           | \*\*             |
+| `push()`       | n/a            | todo             |
+| `pop()`        | n/a            | todo             |
+| `push_back()`  | O(1) / O(N) \* | n/a              |
+| `top()`        | n/a            | todo             |
+| `operator[]`   | O(1)           | n/a              |
+
+- n/a : The method is not available.
+- \* : The time complexity can change depending on the situation.
+- \*\* : The time complexity depends on other data structures.
+
+### References
+- [`vector`](https://code.woboq.org/gcc/libstdc++-v3/include/bits/stl_vector.h.html#std::vector)
+	- [`size()`](https://code.woboq.org/gcc/libstdc++-v3/include/bits/stl_vector.h.html#_ZNKSt6vector4sizeEv)
+	- [`push_back()`](https://code.woboq.org/gcc/libstdc++-v3/include/bits/stl_vector.h.html#_ZNSt6vector9push_backERKT_)
+	- [`struct _Vector_base`](https://code.woboq.org/gcc/include/c++/7.2.1/bits/stl_vector.h.html#std::_Vector_base)
+		- [`struct _Vector_impl`](https://code.woboq.org/gcc/libstdc++-v3/include/bits/stl_vector.h.html#std::_Vector_base::_Vector_impl)
+- [`list`](https://code.woboq.org/gcc/libstdc++-v3/include/bits/stl_list.h.html#std::list)
+- [`forward_list`](https://code.woboq.org/gcc/libstdc++-v3/include/bits/forward_list.h.html#410)
+- [`priority_queue`](https://code.woboq.org/gcc/libstdc++-v3/include/bits/stl_queue.h.html#423)
+	- [`size()`](https://code.woboq.org/gcc/libstdc++-v3/include/bits/stl_queue.h.html#572)
+	- [`push()`](https://code.woboq.org/gcc/libstdc++-v3/include/bits/stl_queue.h.html#595)
+	- [`pop()`](https://code.woboq.org/gcc/libstdc++-v3/include/bits/stl_queue.h.html#630)
+	- [`top()`](https://code.woboq.org/gcc/libstdc++-v3/include/bits/stl_queue.h.html#580)
+
+### Allocator
+- [`__allocator_traits_base`](https://code.woboq.org/gcc/libstdc++-v3/include/bits/alloc_traits.h.html#std::__allocator_traits_base)
+- [`allocator_traits`](https://code.woboq.org/gcc/libstdc++-v3/include/bits/alloc_traits.h.html#std::allocator_traits)
+
