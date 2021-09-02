@@ -302,6 +302,83 @@ private:
 ```
 
 
+## Sort
+### Bubble Sort
+```cpp
+#include <vector>
+
+using namespace std;
+
+void bubble_sort(vector<int> &a) {
+	int n = a.size();
+	
+	bool sorted = false;
+	while (!sorted) {
+		sorted = true;
+
+		for (int i = 0; i < n - 1; ++i) {
+			if (a[i] > a[i + 1]) {
+				sorted = false;
+				swap(a[i], a[i + 1]);
+			}
+		}
+	}
+}
+```
+
+### Insertion Sort
+```cpp
+#include <vector>
+
+using namespace std;
+
+void insertion_sort(vector<int> &a) {
+	int n = a.size();
+	for (int i = 1; i < n; ++i) {
+		int v = a[i];
+
+		int j = i;
+		for (; j > 0; --j) {
+			if (a[j - 1] > v) {
+				a[j] = a[j - 1];
+			}
+			else break;
+		}
+		a[j] = v;
+	}
+}
+```
+
+
+### Merge Sort
+```cpp
+#include <vector>
+
+using namespace std;
+
+void merge_sort(vector<int> &a, int left, int right) {
+	if (right - left <= 1) return;
+	int mid = (left + right) / 2;
+
+	merge_sort(a, left, mid);
+	merge_sort(a, mid, right);
+
+	vector<int> buf;
+	for (int i = left; i < mid; ++i) buf.push_back(a[i]);
+	for (int i = right - 1; i >= mid; --i) buf.push_back(a[i]);
+
+	int idx_left = 0, idx_right = buf.size() - 1;
+	for (int i = left; i < right; ++i) {
+		if (buf[idx_left] <= buf[idx_right]) {
+			a[i] = buf[idx_left++];
+		} else {
+			a[i] = buf[idx_right--];
+		}
+	}
+}
+```
+
+
 ## Coding Interview
 1. Clarify the problem.
 	- Input (Data Type, Size)
