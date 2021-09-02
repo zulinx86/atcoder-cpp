@@ -170,7 +170,7 @@ vector<pair<ull, ull>> PrimeFactorization(ull N) {
 ## Recursion
 ### Fibonacci Numbers
 Dynamic Programming (DP) using memo.
-```c++
+```cpp
 #include <iostream>
 #include <vector>
 
@@ -212,24 +212,30 @@ Then,
 
 Proof:
 ```
-Let G = gcd(a, b), a and b can be written as follows:
-  a = G * a'
-  b = G * b'
+Let m = gcd(a, b) and n = gcd(b, r).
+
+a and b can be written as follows:
+  a = m * a'
+  b = m * b'
 where a' and b' are coprime.
 
 From the above,
-  G * a' = q * (G * b') + r
-  r = G * (a' - q * b') .
+  m * a' = q * (m * b') + r
+       r = m * (a' - q * b') .
+This means that m is one of common divisors of b and r.
+As n is the GCD of b and r, m <= n ... (1)
 
-Suppose r' = (a' - q * b'),
-  r = G * r' .
-This means that r is multiple of G as well as b.
+In addition, 
+  a = q * b + r
+    = q * n * b'' + n * r''
+    = n * (q * b'' + r'')
+This means that n is one of common divisors of a and b.
+As m is the GCD of a and b, n <= m ... (2)
 
-Here, b and r cannot take greater common divisors than G, becuase 0 <= r < G.
-Therefore G = gcd(b, r).
+From (1) and (2), n = m which means gcd(a, b) = gcd(b, r).
 ``` 
 
-```c++
+```cpp
 int gcd(int a, int b) {
 	if (b == 0) return a;
 	return gcd(b, a % b);
@@ -250,6 +256,50 @@ https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm
 	- If `w(i,j)` is the weight of the edge between vertices `i` and `j`, we can define `shortest_path(i,j,k)` in terms of the following recursive formula:
 		- the base case is `shortest_path(i,j,0) = w(i,j)`
 		- the recursive case is `shortest_path(i,j,k) = min(shortest_path(i,j,k-1), shortest_path(i,k,k-1) + shortest_path(k,j,k-1))`
+
+
+## Graphs & Trees
+### Disjoint Set Union (DSU) / Union-Find
+```cpp
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+class dsu {
+	dsu() : _n(0) {}
+	dsu(int n) : _n(n), _per(n, -1) {}
+
+	bool same(int v1, int v2) {
+		return root(v1) == root(v2);
+	}
+
+	int root(int v) {
+		if (per[v] < 0) return v;
+		return per[v] = root(per[v]);
+	}
+
+	int size(int v) {
+		return -1 * _per[root(v)];
+	}
+
+	int merge(int v1, int v2) {
+		int r1 = root(v1), r2 = root(v2);
+		if (r1 == r2) return r1;
+		if (-1 * _per[r1] < -1 * _per[r2]) swap(r1, r2);
+		_per[r1] += _per[r2];
+		_per[r2] = r1;
+		return r1;
+	}
+
+private:
+	int _n;
+
+	// root node : -1 * component size
+	// otherwise : parent node
+	vector<int> _per;
+};
+```
 
 
 ## Coding Interview
