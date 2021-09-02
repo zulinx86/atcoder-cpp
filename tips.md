@@ -48,10 +48,10 @@ How to search all combination of N items.
 using namespace std;
 
 int main(void) {
-	int N;
-	cin >> N;
+	int n;
+	cin >> n;
 
-	for (int i = 0; i < (1 << N); ++i) {
+	for (int i = 0; i < (1 << n); ++i) {
 		cout << bitset<10>(i) << endl;
 	}
 }
@@ -90,11 +90,11 @@ https://en.wikipedia.org/wiki/Hamming_distance
 ```cpp
 using ull = unsigned long long;
 
-int CalcNumDigits(ull N) {
+int calc_num_digits(ull n) {
 	int res = 0;
-	while (N) {
+	while (n) {
 		++res;
-		N /= 10;
+		n /= 10;
 	}
 	return res;
 }
@@ -105,10 +105,10 @@ When we test the primality of N, we only need to check the number from 2 to the 
 ```cpp
 using ull = unsigned long long;
 
-bool IsPrime(ull N) {
-	if (N == 1) return false;
-	for (ull i = 2; i * i <= N; ++i) {
-		if (N % i == 0) return false;
+bool is_prime(ull n) {
+	if (n == 1) return false;
+	for (ull i = 2; i * i <= n; ++i) {
+		if (n % i == 0) return false;
 	}
 	return true;
 }
@@ -122,12 +122,12 @@ bool IsPrime(ull N) {
 using namespace std;
 using ull = unsigned long long;
 
-vector<ull> GetDivisors(ull N) {
+vector<ull> get_divisors(ull n) {
 	vector<ull> res;
-	for (ull i = 1; i * i <= N; ++i) {
-		if (N % i == 0) {
+	for (ull i = 1; i * i <= n; ++i) {
+		if (n % i == 0) {
 			res.push_back(i);
-			if (N / i != i) res.push_back(N / i);
+			if (n / i != i) res.push_back(n / i);
 		}
 	}
 
@@ -143,21 +143,21 @@ vector<ull> GetDivisors(ull N) {
 using namespace std;
 using ull = unsigned long long;
 
-vector<pair<ull, ull>> PrimeFactorization(ull N) {
+vector<pair<ull, ull>> prime_factorization(ull n) {
 	vector<pair<ull, ull>> res;
-	for (ull a = 2; a * a <= N; ++a) {
-		if (N % a != 0) continue;
+	for (ull a = 2; a * a <= n; ++a) {
+		if (n % a != 0) continue;
 
 		ull ex = 0;
-		while (N % a == 0) {
+		while (n % a == 0) {
 			++ex;
-			N /= a;
+			n /= a;
 		}
 
 		res.push_back({a, ex});
 	}
 
-	if (N != 1) res.push_back({N, 1});
+	if (n != 1) res.push_back({n, 1});
 	return res;
 }
 ```
@@ -188,11 +188,11 @@ long long fibo(int n) {
 }
 
 int main(void) {
-	int N;
-	cin >> N;
+	int n;
+	cin >> n;
 
-	memo = vector<long long>(N, -1);
-	cout << fibo(N) << endl;
+	memo = vector<long long>(n, -1);
+	cout << fibo(n) << endl;
 
 	return 0;
 }
