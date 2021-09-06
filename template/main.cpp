@@ -10,6 +10,8 @@ using vll = vector<ll>;
 using vvi = vector<vector<int>>;
 using vvll = vector<vector<ll>>;
 
+#define fi first
+#define se second
 #define rep(i,n) for (int i = 0; i < (n); ++i)
 
 template <typename T> bool chmax(T &m, const T q) { if (m < q) {m = q; return true;} else return false; }

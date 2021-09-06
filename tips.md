@@ -303,7 +303,13 @@ private:
 
 
 ## Sort
+- Stable sort means that it maintains the relative order of items with equal values.
+- In-place means that it doesn't require any additional space.
+
 ### Bubble Sort
+- Time complexity: O(N^2)
+- Space complexity: O(1)
+
 ```cpp
 #include <vector>
 
@@ -322,11 +328,16 @@ void bubble_sort(vector<int> &a) {
 				swap(a[i], a[i + 1]);
 			}
 		}
+
+		--n;
 	}
 }
 ```
 
 ### Insertion Sort
+- Time complexity: O(N^2)
+- Space complexity: O(1)
+
 ```cpp
 #include <vector>
 
@@ -349,8 +360,10 @@ void insertion_sort(vector<int> &a) {
 }
 ```
 
-
 ### Merge Sort
+- Time complexity: O(N log N)
+- Space complexity: O(N)
+
 ```cpp
 #include <vector>
 
@@ -375,6 +388,35 @@ void merge_sort(vector<int> &a, int left, int right) {
 			a[i] = buf[idx_right--];
 		}
 	}
+}
+```
+
+### Quick Sort
+- Average time complexity: O(N log N)
+- Worst time complexity: O(N^2)
+- Space complexity: O(1)
+
+```cpp
+#include <vector>
+
+using namespace std;
+
+void quick_sort(vector<int> &a, int left, int right) {
+	if (left + 1 >= right) return;
+
+	int mid = (left + right) / 2;
+	int pivot = a[mid];
+	swap(a[mid], a[right - 1]);
+
+	int i = left;
+	for (int j = left, j < right - 1; ++j) {
+		if (a[j] < pivot) {
+			swap(a[i++], a[j]);
+		}
+	}
+
+	quick_sort(a, left, i);
+	quick_sort(a, i + 1, right);
 }
 ```
 
