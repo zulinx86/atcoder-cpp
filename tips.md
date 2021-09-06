@@ -420,6 +420,41 @@ void quick_sort(vector<int> &a, int left, int right) {
 }
 ```
 
+### Heap Sort
+- Time complexity: O(N log N)
+- Space complexity: O(1)
+
+```cpp
+#include <vector>
+
+using namespace std;
+
+void heapify(vector<int> &a, int i, int n) {
+	int child = i * 2 + 1;
+	if (child >= n) return;
+
+	if (child + 1 < n && a[child + 1] > a[child]) ++child;
+
+	if (a[child] <= a[i]) return;
+	swap(a[i], a[child]);
+
+	heapify(a, child, n);
+}
+
+void heap_sort(vector<int> &a) {
+	int n = a.size();
+
+	for (int i = n / 2 - 1; i >= 0; --i) {
+		heapify(a, i, n);
+	}
+
+	for (int i = n - 1; i > 0; --i) {
+		swap(a[0], a[i]);
+		heapify(a, 0, i);
+	}
+}
+```
+
 
 ## Coding Interview
 1. Clarify the problem.
@@ -461,7 +496,7 @@ void quick_sort(vector<int> &a, int left, int right) {
 - [`list`](https://code.woboq.org/gcc/libstdc++-v3/include/bits/stl_list.h.html#std::list)
 - [`forward_list`](https://code.woboq.org/gcc/libstdc++-v3/include/bits/forward_list.h.html#410)
 - [`priority_queue`](https://code.woboq.org/gcc/libstdc++-v3/include/bits/stl_queue.h.html#423)
-	- [`size()`](https://code.woboq.org/gcc/libstdc++-v3/include/bits/stl_queue.h.html#572)
+- [`size()`](https://code.woboq.org/gcc/libstdc++-v3/include/bits/stl_queue.h.html#572)
 	- [`push()`](https://code.woboq.org/gcc/libstdc++-v3/include/bits/stl_queue.h.html#595)
 	- [`pop()`](https://code.woboq.org/gcc/libstdc++-v3/include/bits/stl_queue.h.html#630)
 	- [`top()`](https://code.woboq.org/gcc/libstdc++-v3/include/bits/stl_queue.h.html#580)
