@@ -455,6 +455,39 @@ void heap_sort(vector<int> &a) {
 }
 ```
 
+### Bucket Sort
+- Time complexity: O(N + A)
+- Space complexity: O(N + A)
+
+```cpp
+#include <vector>
+
+using namespace std;
+
+const int MAX = 100000;
+
+void bucket_sort(vector<int> &a) {
+	int n = a.size();
+
+	vector<int> num(MAX, 0);
+	for (int i = 0; i < n; ++i) {
+		++num[a[i]];
+	}
+
+	vector<int> sum(MAX, 0);
+	for (int v = 1; v < MAX; ++v) {
+		sum[v] = sum[v - 1] + num[v];
+	}
+
+	vector<int> sorted(n);
+	for (int i = n - 1; i >= 0; --i) {
+		sorted[--sum[a[i]]] = a[i];
+	}
+
+	a = sorted;
+}
+```
+
 
 ## Coding Interview
 1. Clarify the problem.
