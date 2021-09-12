@@ -48,14 +48,13 @@ int main() {
 
 	ll ans = 0;
 	ll n = s.size() - 1;
-	rep(i,1<<n) {
-		ll mask = 1, p = 0;
-		rep(j,n) {
-			if (i & mask) {
-				ans += stoll(s.substr(p,j+1-p));
+	rep(i, 1 << n) {
+		ll p = 0;
+		rep(j, n) {
+			if (i & (1 << j)) {
+				ans += stoll(s.substr(p, j + 1 - p));
 				p += j + 1 - p;
 			}
-			mask <<= 1;
 		}
 		ans += stoll(s.substr(p));
 	}
