@@ -478,7 +478,6 @@ int main() {
 }
 ```
 
-
 ### Bellman-Ford Algorithm
 - [Bellman–Ford algorithm - Wikipedia](https://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm)
 - Bellman-Ford algorithm is an algorithm that computes shortest paths from a single vertex to all of the other vertices in a weighted graph.
@@ -609,6 +608,84 @@ int main() {
 	}
 
 	return 0;
+}
+```
+
+### Minimum Spanning Tree (MST)
+- [Minimum spanning tree - Wikipedia](https://en.wikipedia.org/wiki/Minimum_spanning_tree)
+- Minimum spanning tree (MST) is a subset of the edges of a connected, edge-weighted undirected graph that connects all the vertices together, without any cycles and with the minimum possible total edge weight.
+
+#### Kruskal's Algorithm
+- [Kruskal's algorithm - Wikipedia](https://en.wikipedia.org/wiki/Kruskal%27s_algorithm)
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+using edge = pair<int, pair<int, int>>
+
+class dsu {
+	dsu() : _n(0) {}
+	dsu(int n) : _n(n), _per(n, -1) {}
+
+	bool same(int v1, int v2) {
+		return root(v1) == root(v2);
+	}
+
+	int root(int v) {
+		if (per[v] < 0) return v;
+		return per[v] = root(per[v]);
+	}
+
+	int size(int v) {
+		return -1 * _per[root(v)];
+	}
+
+	int merge(int v1, int v2) {
+		int r1 = root(v1), r2 = root(v2);
+		if (r1 == r2) return r1;
+		if (-1 * _per[r1] < -1 * _per[r2]) swap(r1, r2);
+		_per[r1] += _per[r2];
+		_per[r2] = r1;
+		return r1;
+	}
+
+private:
+	int _n;
+
+	// root node : -1 * component size
+	// otherwise : parent node
+	vector<int> _per;
+};
+
+int main() {
+	int n, m;
+	cin >> n >> m;
+
+	vector<edge> edges(m);
+	for (int i = 0; i < m; ++i) {
+		int u, v, w;
+		cin >> u >> v >> w;
+		edges[i] = edge(w, make_pair(u, v));
+	}
+
+	sort(edges.begin(), edges.end());
+
+	long long ans = 0;
+	dsu uf(n);
+	for (int i = 0; i < m; ++i) {
+		int w = edges[i].first;
+		int u = edges[i].second.first;
+		int v = edges[i].second.second;
+
+		if (uf.same(u, v)) continue;
+
+		ans += w;
+		uf.merge(u, v);
+	}
+
+	cout << ans << endl;
 }
 ```
 
