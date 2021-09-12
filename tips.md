@@ -690,6 +690,104 @@ int main() {
 ```
 
 
+## Network Flow
+### Ford-Fulkerson Algorithm
+- [Ford–Fulkerson algorithm - Wikipedia](https://en.wikipedia.org/wiki/Ford%E2%80%93Fulkerson_algorithm)
+- Ford Fulkerson algorithm is a greedy algorithm that computes the maximum flow in a flow network.
+```cpp
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+struct graph {
+	struct edge {
+		int rev, from, to, cap;
+		edge(int r, int f, int t, int c) : rev(r), from(f), to(t), cap(c) {}
+	};
+
+	vector<vector<edge>> list;
+
+	graph(int n = 0) : list(n) {}
+
+	size_t size() {
+		return list.size();
+	}
+
+	vector<edge> &operator[](int i) {
+		return list[i];
+	}
+
+	edge &redge(const edge &e) {
+		return list[e.to][e.rev];
+	}
+
+	void run_flow(edge &e, int f) {
+		e.cap -= f;
+		redge(e).cap += f;
+	}
+
+	void addedge(int from , int to, int cap) {
+		int fromrev = (int)list[from].size();
+		int torev = (int)list[to].size();
+		list[from].push_back(edge(torev, from , to, cap));
+		list[to].push_back(edge(fromrev, to, from, 0));
+	}
+};
+
+struct ford_fulkerson {
+	static const int INF = 1 << 30;
+	vector<bool> seen;
+
+	ford_fulkerson() {}
+
+	int dfs(graph &g, int v, int t, int f) {
+		if (v == t) return f;
+
+		seen[v] = true;
+		for (auto &e : g[v]) {
+			if (seen[e.to]) continue;
+			if (e.cap == 0) continue;
+			int flow = dfs(g, e.to, t, min(f, e.cap));
+			if (flow == 0) continue;
+			g.run_flow(e, flow);
+			return flow;
+		}
+
+		return 0;
+	}
+
+	int solve(graph &g, int s, int t) {
+		int ans = 0;
+
+		while (true) {
+			seen.assign((int)g.size(), false);
+			int flow = dfs(g, s, t, INF);
+			if (flow == 0) return ans;
+			ans += flow;
+		}
+
+		return 0;
+	}
+};
+
+int main() {
+	int n, m;
+	cin >> n >> m;
+	graph g(n);
+	for (int i = 0;i < m; ++i) {
+		int u, v, c;
+		cin >> u >> v >> c;
+		g.addedge(u, v, c);
+	}
+
+	ford_fulkerson ff;
+	int s = 0, t = n - 1;
+	cout << ff.solve(g, s, t) << endl;
+}
+```
+
+
 ## Sort
 - Stable sort means that it maintains the relative order of items with equal values.
 - In-place means that it doesn't require any additional space.
