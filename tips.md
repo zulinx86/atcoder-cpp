@@ -337,7 +337,7 @@ int main() {
 
 ### Dijkstra's Algorithm
 - [Dijkstra's algorithm - Wikipedia](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)
-- Dijkstra's algorithm is an algorithm for finding the shortest paths between nodes in a graph.
+- Dijkstra's algorithm is an algorithm for finding the shortest paths between vertices in a graph without negative edges.
 
 #### Simple Version
 - Time complexity: O(|V|^2)
@@ -451,7 +451,7 @@ int main() {
 	dist[s] = 0;
 
 	priority_queue<pair<long long, int>,
-		vector<pair<long long, int>,
+		vector<pair<long long, int>>,
 		greater<pair<long long, int>>> q;
 	q.push(make_pair(dist[s], s));
 
@@ -560,6 +560,57 @@ int main() {
 
 ### Floyd-Warshall Algorithm
 - [Floyd–Warshall algorithm - Wikipedia](https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm)
+- Floyd-Warshall algorithm is an algorithm for finding shortest paths in a directed weighted graph with positive or negative edge weights (but with no negatice cycles).
+```cpp
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+const long long INF = 1LL << 60;
+
+int main() {
+	int n, m;
+	cin >> n >> m;
+
+	vector<vector<long long>> dp(n, vector<long long>(n, INF));
+	for (int e = 0; e < m; ++e) {
+		int a, b;
+		long long w;
+		cin >> a >> b >> w;
+		dp[a][b] = w;
+	}
+	for (int v = 0; v < n; ++v) dp[v][v] = 0;
+
+	for (int k = 0; k < n; ++k) {
+		for (int i = 0; i < n; ++i) {
+			for (int j = 0; j < n; ++j) {
+				dp[i][j] = min(dp[i][j], dp[i][k] + dp[k][j]);
+			}
+		}
+	}
+	
+	bool exist_negative_cycle = false;
+	for (int v = 0; v < n; ++v) {
+		if (dp[v][v] < 0) exist_negative_cycle = true;
+	}
+
+	if (exist_negative_cycle) {
+		cout << "NEGATIVE CYCLE" << endl;
+	} else {
+		for (int i = 0; i < n; ++i) {
+			for (int j = 0; j < n; ++j) {
+				if (j) cout << " ";
+				if (dp[i][j] < INF/2) cout << dp[i][j];
+				else cout << "INF";
+			}
+			cout << endl;
+		}
+	}
+
+	return 0;
+}
+```
 
 
 ## Sort
