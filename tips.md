@@ -243,21 +243,6 @@ int gcd(int a, int b) {
 ```
 
 
-## Dynamic Programming
-### Floyd-Warshall Algorithm
-https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm
-- In computer science, the Floyd–Warshall algorithm is an algorithm for finding shortest paths in a directed weighted graph with positive or negative edge weights (but with no negative cycles).
-- A single execution of the algorithm will find the lengths (summed weights) of shortest paths between all pairs of vertices.
-- Time complexity is `O(N^3)` where `N` is the number of vertices.
-- Algorithm
-	- Consider a graph `G` with vertices `V` numbered `1` through `N`.
-	- Further consider a function `shortest_path(i,j,k)` that returns the shortest possible path from i to j using vertices only from the set `{1,2,...,k}` as intermediate points along the way.
-	- Now, given this function, our goal is to find the shortest path from each `i` to `j` using any vertex in `{1,2,...,N}`.
-	- If `w(i,j)` is the weight of the edge between vertices `i` and `j`, we can define `shortest_path(i,j,k)` in terms of the following recursive formula:
-		- the base case is `shortest_path(i,j,0) = w(i,j)`
-		- the recursive case is `shortest_path(i,j,k) = min(shortest_path(i,j,k-1), shortest_path(i,k,k-1) + shortest_path(k,j,k-1))`
-
-
 ## Graphs & Trees
 ### Disjoint Set Union (DSU) / Union-Find
 ```cpp
@@ -300,6 +285,281 @@ private:
 	vector<int> _per;
 };
 ```
+
+### Directed Acyclic Graph (DAG)
+- [Directed acyclic graph - Wikipedia](https://en.wikipedia.org/wiki/Directed_acyclic_graph)
+- Directed acyclic graph (DAG) is a directed graph with no directed cycles.
+
+### Topological Sort
+- [Topological sorting - Wikipedia](https://en.wikipedia.org/wiki/Topological_sorting)
+- Topological sort of a directed acyclic graph is a linear ordering of its vertices such that for every directed edge from a vertex `u` to another vertex `v`, `u` comes before `v` in the ordering.
+- Time complexity: O(|V| + |E|)
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+using graph = vector<vector<int>>;
+
+void dfs(const graph &g, vector<bool> &seen, vector<int> &order, int v) {
+	seen[v] = true;
+	for (auto next_v : g[v]) {
+		if (seen[next_v]) continue;
+		dfs(g, seen, order, v);
+	}
+	order.push_back(v);
+}
+
+int main() {
+	int n, m;
+	cin >> n >> m;
+
+	graph g(n);
+	for (int i = 0; i < m; ++i) {
+		int a, b;
+		cin >> a >> b;
+		g[a].push_back(b);
+	}
+
+	vector<bool> seen(n, false);
+	vector<int> order;
+	for (int v = 0; v < n; ++v) {
+		if (seen[v]) continue;
+		dfs(g, seen, order, v);
+	}
+	reverse(order.begin(), order.end());
+
+	for (auto v : order) cout << v << " -> ";
+	cout << endl;
+}
+```
+
+### Dijkstra's Algorithm
+- [Dijkstra's algorithm - Wikipedia](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)
+- Dijkstra's algorithm is an algorithm for finding the shortest paths between nodes in a graph.
+
+#### Simple Version
+- Time complexity: O(|V|^2)
+```cpp
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+const long long INF = 1LL << 60;
+
+struct edge {
+	int to;
+	long long w;
+	edge(int to, long long w) : to(to), w(w) {}
+};
+
+using graph = vector<vector<edge>>;
+
+template <class T>
+bool chmin(T& a, T b) {
+	if (a > b) {
+		a = b;
+		return true;
+	} else {
+		return false;
+	}
+}
+
+int main() {
+	int n, m, s;
+	cin >> n >> m >> s;
+
+	graph g(n);
+	for (int i = 0; i < m; ++i) {
+		int a, b, w;
+		cin >> a >> b >> w;
+		g[a].push_back(edge(b, w));
+	}
+
+	vector<bool> used(n, false);
+	vector<long long> dist(n, INF);
+	dist[s] = 0;
+	for (int it = 0; it < n; ++it) {
+		long long min_dist = INF;
+		int min_v = -1;
+
+		for (int v = 0; v < n; ++v) {
+			if (!used[v] && dist[v] < min_dist) {
+				min_dist = dist[v];
+				min_v = v;
+			}
+		}
+
+		if (min_v == -1) break;
+
+		for (auto e : g[min_v]) {
+			chmin(dist[e.to], dist[min_v] + e.w);
+		}
+		used[min_v] = true;
+	}
+
+	for (int v = 0; v < n; ++v) {
+		if (dist[v] < INF) cout << dist[v] << endl;
+		else ouct << "INF" << endl;
+	}
+
+	return 0;
+}
+```
+
+#### Heap Version
+- Time complexity: O(|E| log |V|)
+```cpp
+#include <iostream>
+#include <vector>
+#include <queue>
+
+using namespace std;
+
+struct edge {
+	int to;
+	long long w;
+	edge(int to, long long w) : to(to), w(w) {}
+};
+
+using graph = vector<vector<edge>>;
+
+template <class T>
+bool chmin(T& a, T b) {
+	if (a > b) {
+		a = b;
+		return true;
+	} else {
+		return false;
+	}
+}
+
+int main() {
+	int n, m, s;
+	cin >> n >> m >> s;
+
+	graph g(n);
+	for (int i = 0; i < m; ++i) {
+		int a, b, w;
+		cin >> a >> b >> w;
+		g[a].push_back(edge(b, w));
+	}
+
+	vector<long long> dist(n, INF);
+	dist[s] = 0;
+
+	priority_queue<pair<long long, int>,
+		vector<pair<long long, int>,
+		greater<pair<long long, int>>> q;
+	q.push(make_pair(dist[s], s));
+
+	while (!q.empty()) {
+		int v = q.top().second;
+		long long d = q.top().first;
+		q.pop();
+
+		if (d > dist[v]) continue;
+
+		for (auto e : g[v]) {
+			if (chmin(dist[e.to], dist[v] + e.w)) {
+				q.push(make_pair(dist[e.to], e.to));
+			}
+		}
+	}
+
+	for (int v = 0; v < n; ++v) {
+		if (dist[v] < INF) cout << dist[v] << endl;
+		else cout << "INF" << endl;
+	}
+
+	return 0;
+}
+```
+
+
+### Bellman-Ford Algorithm
+- [Bellman–Ford algorithm - Wikipedia](https://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm)
+- Bellman-Ford algorithm is an algorithm that computes shortest paths from a single vertex to all of the other vertices in a weighted graph.
+- It is slower than Dijkstra's algorithm for the same problem, but it is capable of handling graphs in which some of the edge weights are negative numbers.
+- Proof of correctness
+	- Suppose that there are no negative cycles.
+		- The shortest paths have no cycles.
+		- This means that the shortest paths have at most |V|-1 edges.
+		- Thus, relaxing for all the edges |V|-1 times provides the shortest paths.
+		- This means that there are no updates for |V|-th relaxation.
+	- In the situation where there are some negative cycles, updates always occur/ for |V|-th relaxation.
+- Time complexity: O(|V||E|)
+```cpp
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+const long long INF = 1LL << 60;
+
+struct edge {
+	int to;
+	long long w;
+	edge(int to, long long w) : to(to), w(w) {}
+};
+
+using graph = vector<vector<edge>>;
+
+template <class T>
+bool chmin(T& a, T b) {
+	if (a > b) {
+		a = b;
+		return true;
+	} else {
+		return false;
+	}
+}
+
+int main() {
+	int n, m, s;
+	cin >> n >> m >> s;
+
+	graph g(n);
+	for (int i = 0; i < m; ++i) {
+		int a, b, w;
+		cin >> a >> b >> w;
+		g[a].push_back(edge(b, w));
+	}
+
+	bool exist_negative_cycle = false;
+	vector<long long> dist(n, INF);
+	dist[s] = 0;
+	for (int it = 0; it < n; ++it) {
+		bool update = false;
+		for (int v = 0; v < n; ++v) {
+			if (dist[v] == INF) continue;
+			for (auto e : g[v]) {
+				if (chmin(dist[e.to], dist[v] + e.w)) {
+					update = true;
+				}
+			}
+		}
+
+		if (!update) break;
+		if (it == n - 1 && update) exist_negative_cycle = true;
+	}
+
+	if (exist_negative_cycle) cout << "negative cycle" << endl;
+	else {
+		for (int v = 0; v < n; ++v) {
+			if (dist[v] < INF) cout << dist[v] << endl;
+			else cout << "INF" << endl;
+		}
+	}
+
+	return 0;
+}
+```
+
+### Floyd-Warshall Algorithm
+- [Floyd–Warshall algorithm - Wikipedia](https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm)
 
 
 ## Sort
