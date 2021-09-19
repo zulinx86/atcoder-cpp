@@ -252,6 +252,7 @@ int gcd(int a, int b) {
 using namespace std;
 
 class dsu {
+public:
 	dsu() : _n(0) {}
 	dsu(int n) : _n(n), _per(n, -1) {}
 
@@ -285,6 +286,10 @@ private:
 	vector<int> _per;
 };
 ```
+
+Examples
+- [D - Sum of Maximum Weights](https://atcoder.jp/contests/abc214/tasks/abc214_d)
+
 
 ### Directed Acyclic Graph (DAG)
 - [Directed acyclic graph - Wikipedia](https://en.wikipedia.org/wiki/Directed_acyclic_graph)
