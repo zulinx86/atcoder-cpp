@@ -260,8 +260,8 @@ class dsu {
 	}
 
 	int root(int v) {
-		if (per[v] < 0) return v;
-		return per[v] = root(per[v]);
+		if (_per[v] < 0) return v;
+		return _per[v] = root(_per[v]);
 	}
 
 	int size(int v) {
