@@ -1,8 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-using ui = unsigned int;
 using ll = long long;
-using ull = unsigned long long;
 using pi = pair<int, int>;
 using pll = pair<ll, ll>;
 using vi = vector<int>;
