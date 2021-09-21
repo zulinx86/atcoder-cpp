@@ -1,15 +1,16 @@
 #include<bits/stdc++.h>
 using namespace std;
-using uint = unsigned int;
 using ll = long long;
-using ull = unsigned long long;
-using pii = pair<int, int>;
+using pi = pair<int, int>;
 using pll = pair<ll, ll>;
+using vi = vector<int>;
+using vll = vector<ll>;
+using vvi = vector<vector<int>>;
+using vvll = vector<vector<ll>>;
 
-#define FOR(i,a,b) for (int i = a; i < b; ++i)
-#define FORR(i,a,b) for (int i = b - 1; i >= a; --i)
-#define REP(i,n) FOR(i,0,n)
-#define REPR(i,n) FORR(i,0,n)
+#define fi first
+#define se second
+#define rep(i,n) for (int i = 0; i < (n); ++i)
 
 template <typename T> bool chmax(T &m, const T q) { if (m < q) {m = q; return true;} else return false; }
 template <typename T> bool chmin(T &m, const T q) { if (m > q) {m = q; return true;} else return false; }
@@ -40,13 +41,10 @@ int main() {
 	cin.tie(0);
 	ios::sync_with_stdio(false);
 
-	string S;
-	cin >> S;
+	string s;
+	cin >> s;
 
-	if (S[S.size() - 1] == 's')
-		cout << S << "es" << endl;
-	else
-		cout << S << "s" << endl;
-
+	if (s[s.size() - 1] == 's') cout << s << "es" << endl;
+	else cout << s << "s" << endl;
 	return 0;
 }

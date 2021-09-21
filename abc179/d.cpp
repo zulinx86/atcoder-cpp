@@ -1,15 +1,16 @@
 #include<bits/stdc++.h>
 using namespace std;
-using uint = unsigned int;
 using ll = long long;
-using ull = unsigned long long;
-using pii = pair<int, int>;
+using pi = pair<int, int>;
 using pll = pair<ll, ll>;
+using vi = vector<int>;
+using vll = vector<ll>;
+using vvi = vector<vector<int>>;
+using vvll = vector<vector<ll>>;
 
-#define FOR(i,a,b) for (int i = a; i < b; ++i)
-#define FORR(i,a,b) for (int i = b - 1; i >= a; --i)
-#define REP(i,n) FOR(i,0,n)
-#define REPR(i,n) FORR(i,0,n)
+#define fi first
+#define se second
+#define rep(i,n) for (int i = 0; i < (n); ++i)
 
 template <typename T> bool chmax(T &m, const T q) { if (m < q) {m = q; return true;} else return false; }
 template <typename T> bool chmin(T &m, const T q) { if (m > q) {m = q; return true;} else return false; }
@@ -36,43 +37,31 @@ const string COLOR_RESET = "\033[0m", BRIGHT_GREEN = "\033[1;32m", BRIGHT_RED = 
 #define dbg(x) (x)
 #endif
 
-
-ll mod = 998244353;
+const ll mod = 998244353;
 
 int main() {
 	cin.tie(0);
 	ios::sync_with_stdio(false);
 
-	ll N, K;
-	cin >> N >> K;
+	int n, k;
+	cin >> n >> k;
 
-	vector<pair<ll, ll>> LRs;
-	ll L, R;
-	REP(k, K) {
-		cin >> L >> R;
-		LRs.push_back(make_pair(L, R));
-	}
+	vector<pi> lr(k);
+	rep(i, k) cin >> lr[i].fi >> lr[i].se;
 
-	vector<ll> dp(N);
+	vll dp(2 * n + 1, 0);
 	dp[0] = 1;
 	dp[1] = mod - 1;
 
-	REP(n, N) {
-		if (n > 0)
-			dp[n] = (dp[n - 1] + dp[n]) % mod;
-
-		REP(k, K) {
-			tie(L, R) = LRs[k];
-			if (n + L < N) {
-				dp[n + L] = (dp[n] + dp[n + L]) % mod;
-			}
-			if (n + R + 1 < N) {
-				dp[n + R + 1] = (dp[n + R + 1] + mod - dp[n]) % mod;
-			}
+	rep(i, n) {
+		if (i > 0) dp[i] = (dp[i] + dp[i - 1]) % mod;
+		rep(j, k) {
+			int l = lr[j].fi, r = lr[j].se;
+			dp[i + l] = (dp[i + l] + dp[i]) % mod;
+			dp[i + r + 1] = (dp[i + r + 1] + mod - dp[i]) % mod;
 		}
 	}
 
-	cout << dp[N - 1] << endl;
-
+	cout << dp[n - 1] << endl;
 	return 0;
 }

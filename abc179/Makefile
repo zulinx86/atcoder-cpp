@@ -1,9 +1,12 @@
 CXX		= g++
 CXXFLAGS	= -std=gnu++17 -O2 -Wall
 
-%: %.cpp
-	time $(CXX) $(CXXFLAGS) $<
-	./a.out
+all:
+	make $(patsubst %.cpp,%,$(wildcard *.cpp))
 
+%: %.cpp
+	time $(CXX) $(CXXFLAGS) $< -o $@
+
+.PHONY: clean
 clean:
-	rm -f a.out
+	rm -f $(patsubst %.cpp,%,$(wildcard *.cpp))
