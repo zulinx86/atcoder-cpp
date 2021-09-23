@@ -79,6 +79,87 @@ $ ./a.out
 ```
 
 
+## Modulo
+```cpp
+#include <iostream>
+using namespace std;
+
+using ll = long long;
+
+template <ll mod>
+class modint {
+	using M = modint;
+
+public:
+	modint(ll x = 0) {
+		while (x < 0) x += mod;
+		_v = x % mod;
+	}
+	modint(const M &x) { _v = x._v; }
+
+	M operator+() const { return *this; }
+	M operator-() const { return M(-_v); }
+
+	M &operator++() {
+		_v = (_v + 1) % mod;
+		return *this;
+	}
+	M &operator--() {
+		_v = (_v - 1) % mod;
+		return *this;
+	}
+	M operator++(int) {
+		M res(*this);
+		++*this;
+		return res;
+	}
+	M operator--(int) {
+		M res(*this);
+		--*this;
+		return res;
+	}
+
+	M &operator+=(const M &x) {
+		_v = (_v + x._v) % mod;
+		return *this;
+	}
+	M &operator-=(const M &x) {
+		_v = (_v + mod - x._v) % mod;
+		return *this;
+	}
+	M &operator*=(const M &x) {
+		_v = (_v * x._v) % mod;
+		return *this;
+	}
+	M &operator/=(const M &x) { return *this *= x.inv(); }
+
+	M operator+(const M &x) const { return M(*this) += x; }
+	M operator-(const M &x) const { return M(*this) -= x; }
+	M operator*(const M &x) const { return M(*this) *= x; }
+	M operator/(const M &x) const { return M(*this) /= x; }
+
+	M pow(ll n) const {
+		M x = *this, r = 1;
+		while (n) {
+			if (n & 1) r *= x;
+			x *= x;
+			n >>= 1;
+		}
+		return r;
+	}
+	M inv() const { return pow(mod - 2); }
+
+	friend ostream &operator<<(ostream &os, const M &x) {
+		os << x._v;
+		return os;
+	}
+
+private:
+	ll _v = 0;
+};
+```
+
+
 ## Distances
 ### Hamming Distance
 https://en.wikipedia.org/wiki/Hamming_distance
